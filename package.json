@@ -1,7 +1,7 @@
 {
   "name": "aplikasi-sekolah-enterprise-app",
-  "version": "3.5.0-enterprise",
-  "description": "Aplikasi Sekolah Enterprise - Production Grade Enterprise Fullstack Suite",
+  "version": "5.0.0-worldclass",
+  "description": "Aplikasi Sekolah Enterprise - Sistem Informasi Sekolah Enterprise",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
