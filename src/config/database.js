@@ -1,30 +1,19 @@
-// Turso Cloud SQLite Database Configuration
 const { createClient } = require('@libsql/client');
 
-const dbUrl = process.env.TURSO_DATABASE_URL || 'libsql://edgartech-db-edgarizkys.aws-ap-northeast-1.turso.io';
-const dbAuthToken = process.env.TURSO_AUTH_TOKEN || '';
-
 const tursoClient = createClient({
-    url: dbUrl,
-    authToken: dbAuthToken
+    url: process.env.TURSO_DATABASE_URL || 'libsql://edgartech-db-edgarizkys.turso.io',
+    authToken: process.env.TURSO_AUTH_TOKEN || ''
 });
 
 async function initializeDatabase() {
     try {
-        await tursoClient.execute(`
-            CREATE TABLE IF NOT EXISTS enterprise_records (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                title TEXT NOT NULL,
-                category TEXT NOT NULL,
-                amount REAL NOT NULL,
-                status TEXT NOT NULL,
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-            );
-        `);
-        console.log('✓ Database Migration Executed: enterprise_records schema ready for Aplikasi Sekolah Enterprise');
-    } catch (err) {
-        console.log('Database notice:', err.message);
-    }
+        await tursoClient.execute(`CREATE TABLE IF NOT EXISTS siswa (id INTEGER PRIMARY KEY AUTOINCREMENT, tenant_id TEXT DEFAULT 'default', nis TEXT NOT NULL, nama TEXT NOT NULL, kelas TEXT NOT NULL, jurusan TEXT NOT NULL, tahun_masuk REAL NOT NULL, status TEXT NOT NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)`);
+        console.log('[DB] Table siswa (Multi-Tenant) ready');
+        await tursoClient.execute(`CREATE TABLE IF NOT EXISTS guru (id INTEGER PRIMARY KEY AUTOINCREMENT, tenant_id TEXT DEFAULT 'default', nip TEXT NOT NULL, nama TEXT NOT NULL, mata_pelajaran TEXT NOT NULL, jabatan TEXT NOT NULL, status TEXT NOT NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)`);
+        console.log('[DB] Table guru (Multi-Tenant) ready');
+        await tursoClient.execute(`CREATE TABLE IF NOT EXISTS spp (id INTEGER PRIMARY KEY AUTOINCREMENT, tenant_id TEXT DEFAULT 'default', siswa TEXT NOT NULL, bulan TEXT NOT NULL, nominal REAL NOT NULL, metode TEXT NOT NULL, status TEXT NOT NULL, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)`);
+        console.log('[DB] Table spp (Multi-Tenant) ready');
+    } catch(e) { console.log('DB Notice:', e.message); }
 }
 
 module.exports = { tursoClient, initializeDatabase };
