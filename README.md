@@ -1,27 +1,19 @@
-# Aplikasi Sekolah Enterprise - World-Class Enterprise Platform
+# Aplikasi Sekolah Enterprise
 
-![Build Status](https://img.shields.io/badge/Build-100%25%20Passed-emerald)
-![Architecture](https://img.shields.io/badge/Architecture-Express.js%20%7C%20Turso%20DB-indigo)
+🏫 Sistem Informasi Sekolah Enterprise - World-Class Enterprise v5.0
 
-Web platform skala industri yang dibangun secara 100% otomatis oleh **E.D.G.A.R Senior Lead Engineer Agent**.
+## Features & Architecture
+- **Payment Gateway**: Midtrans & Xendit QRIS / VA + Webhook Verification
+- **Security**: Express Rate Limiter (100 req/min) & Helmet Security
+- **Analytics**: Chart.js Interactive Graph Visualization
+- **Export**: Export CSV/Excel & Print PDF Report
+- **Multi-Tenant**: Multi-Tenant & Multi-Branch Ready Schema
+- **Database**: Turso Cloud SQLite Database
 
-## 📁 Repository Structure
-```text
-├── Dockerfile
-├── vercel.json
-├── package.json
-├── README.md
-├── src/
-│   ├── app.js
-│   ├── config/database.js
-│   ├── controllers/enterpriseController.js
-│   ├── middleware/auth.js
-│   └── routes/api.js
-├── public/
-│   └── index.html
-└── test/
-    └── unit.test.js
-```
+## Entities
+- **Siswa**: NIS, Nama Lengkap, Kelas, Jurusan, Tahun Masuk, Status
+- **Guru**: NIP, Nama Lengkap, Mata Pelajaran, Jabatan, Status
+- **Pembayaran SPP**: Nama Siswa, Bulan, Nominal (Rp), Metode Pembayaran, Status
 
 ---
-*Built with ❤️ by EdgarTech AI Senior Developer Agent*
+*Built by E.D.G.A.R Senior Principal Engineer Agent - EdgarTech Corp*
