@@ -3,28 +3,17 @@ const cors = require('cors');
 const helmet = require('helmet');
 const path = require('path');
 require('dotenv').config();
-
+const rateLimiter = require('./middleware/rateLimiter');
 const apiRoutes = require('./routes/api');
 const { initializeDatabase } = require('./config/database');
-
 const app = express();
 const PORT = process.env.PORT || 3000;
-
 app.use(cors());
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.json());
+app.use(rateLimiter);
 app.use(express.static(path.join(__dirname, '../public')));
-
-// Mount API Routes
 app.use('/api', apiRoutes);
-
-// Fallback index.html
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
-});
-
-initializeDatabase().then(() => {
-    app.listen(PORT, () => console.log(`🚀 Enterprise Suite Aplikasi Sekolah Enterprise running on port ${PORT}`));
-});
-
+app.get('*', (req, res) => { res.sendFile(path.join(__dirname, '../public/index.html')); });
+initializeDatabase().then(() => { app.listen(PORT, () => console.log(`[LIVE WORLD-CLASS] Aplikasi Sekolah Enterprise on port ${PORT}`)); });
 module.exports = app;
